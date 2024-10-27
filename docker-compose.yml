@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  account-db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: account_db
+    ports:
+      - "5432:5432"
+
+  hospital-db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hospital_db
+    ports:
+      - "5433:5432"
+
+  timetable-db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: timetable_db
+    ports:
+      - "5434:5432"
+
+  document-db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: document_db
+    ports:
+      - "5435:5432"
+
+  account:
+    build: ./account
+    ports:
+      - "8081:80"
+    depends_on:
+      - account-db
+
+  hospital:
+    build: ./hospital
+    ports:
+      - "8082:80"
+    depends_on:
+      - hospital-db
+
+  timetable:
+    build: ./timetable
+    ports:
+      - "8083:80"
+    depends_on:
+      - timetable-db
+
+  document:
+    build: ./document
+    ports:
+      - "8084:80"
+    depends_on:
+      - document-db
