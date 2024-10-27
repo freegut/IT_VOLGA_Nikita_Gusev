@@ -1,0 +1,13 @@
+all: disk_search network_search file_processing
+
+disk_search: file_search/disk_search.cpp
+    g++ -o file_search/disk_search.exe file_search/disk_search.cpp -lws2_32
+
+network_search: file_search/network_search.cpp
+    g++ -o file_search/network_search.exe file_search/network_search.cpp -lws2_32 -lnetapi32
+
+file_processing: file_search/file_processing.cpp
+    g++ -o file_search/file_processing.exe file_search/file_processing.cpp -lws2_32
+
+clean:
+    del file_search\disk_search.exe file_search\network_search.exe file_search\file_processing.exe
